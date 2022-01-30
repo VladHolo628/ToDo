@@ -61,4 +61,3 @@ changeStatus("have a breakfast", "Done");
 deleteTask("have a walk");
 
 showList();
-// console.log("jfadhskkfjhkd\ndksjfsldkjaflksdj\n");
