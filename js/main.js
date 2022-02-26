@@ -1,3 +1,5 @@
+// import "./view.js";
+
 const STATUS = {
   TO_DO: "To Do",
   DONE: "Done",
@@ -8,30 +10,8 @@ const PRIORITY = {
   HIGH: "High",
 };
 const defaultStatus = STATUS.TO_DO;
-const defaultPriority = PRIORITY.LOW;
 
-let list = [
-  {
-    name: "create a new practice task",
-    status: STATUS.IN_PROGRESS,
-    priority: PRIORITY.HIGH,
-  },
-  {
-    name: "make a bed",
-    status: STATUS.DONE,
-    priority: PRIORITY.LOW,
-  },
-  {
-    name: "make a coffee",
-    status: STATUS.DONE,
-    priority: PRIORITY.LOW,
-  },
-  {
-    name: "write a post",
-    status: STATUS.TO_DO,
-    priority: PRIORITY.HIGH,
-  },
-];
+let list = [];
 
 function changeStatus(task, status) {
   let currentTask = list.find((item) => item.name === task);
@@ -51,11 +31,11 @@ function changePriority(task, priority) {
   }
 }
 
-function addTask(task) {
+function addTask(task, priority) {
   list.push({
     name: task,
     status: defaultStatus,
-    priority: defaultPriority,
+    priority: priority,
   });
 }
 
@@ -93,10 +73,5 @@ function showPriority() {
 function showBy(type) {
   type === "status" ? showList() : showPriority();
 }
-changeStatus("make a bed", "To Do");
-addTask("have a walk");
-addTask("have a breakfast");
-// changeStatus("make a bed", STATUS.IN_PROGRESS);
-deleteTask("have a walk");
-console.log(list);
-showBy("status");
+
+export { addTask, deleteTask, changeStatus, list, PRIORITY, STATUS };
