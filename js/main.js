@@ -13,6 +13,12 @@ const defaultStatus = STATUS.TO_DO;
 
 let list = [];
 
+function Task(task,priority) {
+  this.name = task;
+  this.status = defaultStatus;
+  this.priority = priority;
+}
+
 function changeStatus(task, status) {
   let currentTask = list.find((item) => item.name === task);
   if (currentTask) {
@@ -31,12 +37,10 @@ function changePriority(task, priority) {
   }
 }
 
+
 function addTask(task, priority) {
-  list.push({
-    name: task,
-    status: defaultStatus,
-    priority: priority,
-  });
+  list.push(new Task(task,priority));
+  console.log(list)
 }
 
 function deleteTask(task) {

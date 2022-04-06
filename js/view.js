@@ -56,24 +56,30 @@ const LOW_PRIORITY = {
   FORM: document.querySelector(".todo__form--low"),
   INPUT: document.querySelector(".todo__form-input--low"),
 };
+function renderList() {
+  list.forEach((item) => {
+  
+    if (item.priority === PRIORITY.HIGH) {
+      HIGH_PRIORITY.CATEGORY.insertAdjacentHTML(
+        "beforeend",
+        createTask(item.name)
+      );
+    }
+    LOW_PRIORITY.CATEGORY.insertAdjacentHTML("beforeend", createTask(item.name));
+  });
+}
 
-list.forEach((item) => {
-  if (item.priority === PRIORITY.HIGH) {
-    HIGH_PRIORITY.CATEGORY.insertAdjacentHTML(
-      "beforeend",
-      createTask(item.name)
-    );
-  }
-  LOW_PRIORITY.CATEGORY.insertAdjacentHTML("beforeend", createTask(item.name));
-});
 
 HIGH_PRIORITY.FORM.addEventListener("submit", (evt) => {
   const isEmpty =
     HIGH_PRIORITY.INPUT.value === "" ||
     HIGH_PRIORITY.INPUT.value === HIGH_PRIORITY.INPUT.defaultValue;
 
+
   evt.preventDefault();
-  if (!isEmpty) {
+  const isElementPresent = list.some((o) => o.name === HIGH_PRIORITY.INPUT.value);
+
+  if (!isEmpty && !isElementPresent) {
     addTask(HIGH_PRIORITY.INPUT.value, PRIORITY.HIGH);
     HIGH_PRIORITY.CATEGORY.insertAdjacentHTML(
       "beforeend",
@@ -82,7 +88,7 @@ HIGH_PRIORITY.FORM.addEventListener("submit", (evt) => {
     addDeleteing();
     addCheckbox();
     HIGH_PRIORITY.FORM.reset();
-  }
+  } else return
 });
 
 LOW_PRIORITY.FORM.addEventListener("submit", (evt) => {
@@ -91,8 +97,9 @@ LOW_PRIORITY.FORM.addEventListener("submit", (evt) => {
     LOW_PRIORITY.INPUT.value === LOW_PRIORITY.INPUT.defaultValue;
 
   evt.preventDefault();
+  const isElementPresent = list.some((o) => o.name === LOW_PRIORITY.INPUT.value);
 
-  if (!isEmpty) {
+  if (!isEmpty && !isElementPresent) {
     addTask(LOW_PRIORITY.INPUT.value, PRIORITY.LOW);
     LOW_PRIORITY.CATEGORY.insertAdjacentHTML(
       "beforeend",
@@ -101,7 +108,5 @@ LOW_PRIORITY.FORM.addEventListener("submit", (evt) => {
     addDeleteing();
     addCheckbox();
     LOW_PRIORITY.FORM.reset();
-  } else {
-    alert("ERROR");
-  }
+  } else return
 });
